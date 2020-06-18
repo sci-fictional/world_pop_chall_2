@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/default.DESKTOP-VIBHMRM/Desktop/population 2 challenge/sql-population-queries-part-ii-starting/db.sqlite" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="150"/><column_width id="3" width="1556"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,9:maincountries"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="countries" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="61"/><column index="2" value="296"/><column index="3" value="136"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="population_years" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="61"/><column index="2" value="120"/><column index="3" value="61"/><column index="4" value="122"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">SELECT countries.continent, countries.name
+FROM countries
+WHERE countries.continent = 'Africa';
+
+SELECT countries.continent, SUM(population_years.population), population_years.year
+FROM population_years
+	LEFT JOIN countries
+		ON countries.id = population_years.id
+WHERE countries.continent = 'Oceania'
+	AND year = 2005;
+	
+SELECT countries.continent, ROUND(AVG(population_years.population), 3)
+FROM population_years
+	LEFT JOIN countries
+		ON countries.id = population_years.id
+WHERE continent = 'South America';
+
+SELECT MIN(population_years.population) AS 'Smallet Population', countries.name
+FROM countries
+	LEFT JOIN population_years
+		ON countries.id = population_years.id
+WHERE year = 2007;
+
+SELECT AVG(population_years.population) AS 'Average Population (Millions)', countries.name, population_years.year
+FROM countries
+	LEFT JOIN population_years
+		ON countries.id = population_years.id
+WHERE countries.name = 'Poland' AND population_years.year &gt;= year;
+
+SELECT countries.name
+FROM countries
+WHERE countries.name LIKE '% The%';
+
+SELECT countries.continent, SUM(population_years.population) AS 'Total Population in Millions', population_years.year
+FROM countries
+	LEFT JOIN population_years
+		ON countries.id = population_years.country_id
+WHERE year = 2010
+GROUP BY countries.continent;
+
+
+	
+
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
